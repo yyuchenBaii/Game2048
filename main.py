@@ -9,45 +9,45 @@ def main():
     while True:
         print_board(board)
         
-        # 检查胜利条件
+        # Check if the win condition is met.
         if check_win(board):
-            print("恭喜你达到了2048！你赢了！")
-            choice = input("输入 r 重新开始，或 q 退出游戏：").strip().lower()
+            print("Congratulations, you've reached 2048! You win!")
+            choice = input("Enter 'r' to restart or 'q' to quit: ").strip().lower()
             if choice == 'r':
                 board = initialize_board()
                 continue
             elif choice == 'q':
                 break
         
-        # 检查是否无法进行任何移动
+        # Check if there are no more valid moves.
         if check_game_over(board):
-            print("游戏结束，没有更多合法移动。")
-            choice = input("输入 r 重新开始，或 q 退出游戏：").strip().lower()
+            print("Game over! No more valid moves available.")
+            choice = input("Enter 'r' to restart or 'q' to quit: ").strip().lower()
             if choice == 'r':
                 board = initialize_board()
                 continue
             elif choice == 'q':
                 break
         
-        # 获取用户输入，并处理异常输入
+        # Get user input and handle any invalid inputs.
         try:
-            user_input = input("请输入移动方向 (w=上, s=下, a=左, d=右)：").strip().lower()
+            user_input = input("Enter move direction (w=up, s=down, a=left, d=right): ").strip().lower()
             if user_input not in ['w', 'a', 's', 'd']:
-                raise ValueError("无效输入")
+                raise ValueError("Invalid input")
         except ValueError as e:
-            print("错误：请输入 w, a, s 或 d。")
+            print("Error: Please enter 'w', 'a', 's', or 'd'.")
             continue
         
-        # 使用深拷贝检测移动是否改变棋盘状态
+        # Use a deep copy to verify if the move changes the board state.
         board_copy = copy.deepcopy(board)
         try:
             new_board = move(board_copy, user_input)
         except Exception as e:
-            print("移动过程中出错：", e)
+            print("Error during move:", e)
             continue
         
         if new_board == board:
-            print("该方向无法移动，请尝试其他方向。")
+            print("No tiles moved in that direction. Please try a different move.")
             continue
         else:
             board = new_board
@@ -56,5 +56,5 @@ def main():
 if __name__ == "__main__":
     main()
     
-# GitHub: 请将你的代码 push 到你的 GitHub 账号，并在此处留下你的 GitHub 链接。
-# 例如: # GitHub: https://github.com/yourusername/2048-game
+# GitHub: Please push your code to your GitHub account and include your GitHub link here.
+# Example: # GitHub: https://github.com/yourusername/2048-game
